@@ -12,7 +12,8 @@ namespace PeopleViewer
         {
             base.OnStartup(e);
 
-            var repository = new ServiceRepository();
+            var wrappedRepository = new ServiceRepository();
+            var repository = new CachingRepository(wrappedRepository);
             var viewModel = new PeopleViewModel(repository);
             Application.Current.MainWindow = new MainWindow(viewModel);
 
